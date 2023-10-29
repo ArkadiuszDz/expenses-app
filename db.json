@@ -1,0 +1,32 @@
+{
+  "exchangeRate": {
+    "value": 4.324
+  },
+  "expenses": [
+    {
+      "id": 1,
+      "title": "New book about Rust",
+      "amountPLN": 20
+    },
+    {
+      "title": "Bus ticket",
+      "amountPLN": 2.55,
+      "id": 2
+    },
+    {
+      "amountPLN": 20,
+      "title": "Snacks for a football match",
+      "id": 3
+    },
+    {
+      "amountPLN": 120,
+      "title": "Java Book",
+      "id": 4
+    },
+    {
+      "amountPLN": 130,
+      "title": "C++ Book",
+      "id": 5
+    }
+  ]
+}
