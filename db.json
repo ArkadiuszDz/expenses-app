@@ -4,11 +4,6 @@
   },
   "expenses": [
     {
-      "id": 1,
-      "title": "New book about Rust",
-      "amountPLN": 20
-    },
-    {
       "title": "Bus ticket",
       "amountPLN": 2.55,
       "id": 2
