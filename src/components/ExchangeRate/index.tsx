@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite";
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 const ExchangeRate = (props: any) => {
-  console.log(props, '--props--');
 
   useEffect(() => {
     props.exchangeRate.getExchangeRateRequest();
@@ -21,7 +20,12 @@ const ExchangeRate = (props: any) => {
 
   return (
     <div>
-      <input value={props.exchangeRate.exchangeRate} onChange={handleChange}/>
+      <input
+        type="number"
+        inputMode="numeric"
+        //pattern="[-+]?[0-9]*[.,]?[0-9]+"
+        value={props.exchangeRate.exchangeRate}
+        onChange={handleChange}/>
       {
         props.exchangeRate.isValueSetManually &&
         <p>You set the value manually.</p>

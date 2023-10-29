@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import numeral from 'numeral';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Table = ({ items }: any) => {
 
@@ -21,6 +22,11 @@ const Table = ({ items }: any) => {
                   <td>{item.title}</td>
                   <td>{item.amountPLN}</td>
                   <td>{numeral(item.amountPLN * items.exchangeRate.exchangeRate).format('00.00')}</td>
+                  <td>
+                    <button onClick={() => items.removeExpenseItemRequest(item.id)}>
+                      <DeleteIcon />
+                    </button>
+                  </td>
                 </tr>
               );
             })

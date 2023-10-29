@@ -28,9 +28,15 @@ class ExpenseItemsStore {
     this.items.push(expenseItem);
   }
 
-  removeExpenseItem(id: string) {
-    const newItems = this.items.filter((item: ExpenseItemStore) => item.id !== id);
-    this.items = [...newItems];
+  async removeExpenseItemRequest(id: string) {
+    try {
+      await fetch(`http://localhost:3001/expenses/${id}`, {
+        method: 'delete',
+      });
+      runInAction(() => this.getExpenseItemsRequest());
+    } catch (e) {
+      throw new Error('Something went wrong.')
+    }
   }
 
   get itemsArray() {

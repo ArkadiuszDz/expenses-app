@@ -14,7 +14,7 @@ const ExpenseForm = ({test}: { test: any}) => {
       test.saveExpenseItemRequest({ 
         amountPLN: Number(test.amountPLN),
         title: test.title
-      })
+      });
       test.setTitle('');
       test.setAmount(0);
     }
@@ -34,7 +34,10 @@ const ExpenseForm = ({test}: { test: any}) => {
       <div>
         <input
           name="amountPLN"
-          value={test.amountPLN}
+          type="number"
+          inputMode="numeric"
+          //pattern="[-+]?[0-9]*[.,]?[0-9]+"
+          value={parseFloat(test.amountPLN)}
           onChange={e => test.setAmount(e.target.value)}
         />
       </div>

@@ -15,8 +15,8 @@ function App() {
       <header className="App-header">
       </header>
       <ExchangeRate exchangeRate={exchangeRateStore} />
-      <ExpenseForm test={expenseItemStore} />
       <Table items={expenseItemsStore}/>
+      <ExpenseForm test={expenseItemStore} />
     </div>
   );
 }
