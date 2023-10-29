@@ -17,7 +17,7 @@ class ExpenseItemsStore {
   async getExpenseItemsRequest() {
     const response = await fetch('http://localhost:3001/expenses');
     const data = await response.json();
-    runInAction(() => this.setExpenseItems(data))
+    runInAction(() => this.setExpenseItems(data));
   }
 
   setExpenseItems(expenseItems: ExpenseItemStore[]) {

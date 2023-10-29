@@ -7,8 +7,6 @@ interface ExpenseStore {
 
 const ExpenseForm = ({test}: { test: any}) => {
 
-  console.log(test, '--props test--');
-
   const submitHandler = (e: any) => {
     e.preventDefault();
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { observer } from "mobx-react-lite";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const ExchangeRate = (props: any) => {
   console.log(props, '--props--');
@@ -25,7 +26,7 @@ const ExchangeRate = (props: any) => {
         props.exchangeRate.isValueSetManually &&
         <p>You set the value manually.</p>
       }
-      <button onClick={refreshExchangeRateHandler}>Refresh</button>
+      <button onClick={refreshExchangeRateHandler}><RefreshIcon /></button>
     </div>
   );
 };

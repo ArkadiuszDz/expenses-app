@@ -22,7 +22,10 @@ class ExchangeRateStore {
     try {
       const response = await fetch('http://localhost:3001/exchangeRate');
       const data = await response.json();
-      runInAction(() => this.setExchangeRate(data.value));
+      runInAction(() => {
+        this.setExchangeRate(data.value);
+        this.valueSetManually(false);
+      });
     } catch (e) {
       throw new Error('Something went wrong.')
     }
