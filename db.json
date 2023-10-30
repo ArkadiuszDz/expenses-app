@@ -4,19 +4,9 @@
   },
   "expenses": [
     {
-      "title": "Bus ticket",
       "amountPLN": 2.55,
-      "id": 2
-    },
-    {
-      "amountPLN": 120,
-      "title": "Java Book",
-      "id": 4
-    },
-    {
-      "amountPLN": 123.45,
-      "title": "Thinking in C++",
-      "id": 5
+      "title": "Bus ticket",
+      "id": 1
     }
   ]
 }

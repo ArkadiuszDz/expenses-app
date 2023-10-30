@@ -10,8 +10,7 @@ const ExchangeRate = (props: any) => {
   }, []);
 
   useEffect(() => {
-    console.log(value, '--value--')
-    props.exchangeRate.setExchangeRate(Number(value ?? ''));
+    props.exchangeRate.setExchangeRate(value ?? '');
   }, [value]);
 
   const handleChange = (e: any) => {

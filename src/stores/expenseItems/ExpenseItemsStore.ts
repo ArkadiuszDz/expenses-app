@@ -33,6 +33,7 @@ class ExpenseItemsStore {
       await fetch(`http://localhost:3001/expenses/${id}`, {
         method: 'delete',
       });
+      console.log(id,'dd')
       runInAction(() => this.getExpenseItemsRequest());
     } catch (e) {
       throw new Error('Something went wrong.')

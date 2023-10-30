@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import numeral from 'numeral';
 
 import * as Styled from './styled';
 
@@ -30,13 +29,7 @@ const ExpenseForm = ({test}: { test: any}) => {
       setAmountError(false);
     }
 
-    // if (test.amountPLN !== undefined && test.title.length >= 5) {
-    
-    // }
-  }
-
-  useEffect(() => {
-    if (!amountError && !titleError) {
+    if (test.amountPLN !== '' && test.title.length >= 5) {
       test.saveExpenseItemRequest({ 
         amountPLN: Number(test.amountPLN),
         title: test.title
@@ -44,7 +37,7 @@ const ExpenseForm = ({test}: { test: any}) => {
       test.setTitle('');
       test.setAmount('');
     }
-  }, [amountError, titleError]);
+  }
 
   useEffect(() => {
     test.setAmount(amount)
