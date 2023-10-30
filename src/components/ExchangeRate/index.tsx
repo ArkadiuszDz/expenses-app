@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { observer } from "mobx-react-lite";
 
-const ExchangeRate = (props: any) => {
+const ExchangeRate = ({ exchangeRateStore }: { exchangeRateStore: any }) => {
 
-  const [value, setValue] = useState(props.exchangeRate.exchangeRate)
+  const [value, setValue] = useState(exchangeRateStore.exchangeRate);
 
   useEffect(() => {
-    props.exchangeRate.getExchangeRateRequest();
+    exchangeRateStore.getExchangeRateRequest();
   }, []);
 
   useEffect(() => {
-    props.exchangeRate.setExchangeRate(value ?? '');
+    exchangeRateStore.setExchangeRate(value ?? '');
   }, [value]);
 
   const handleChange = (e: any) => {
@@ -19,21 +19,16 @@ const ExchangeRate = (props: any) => {
   }
 
   const refreshExchangeRateHandler = () => {
-    props.exchangeRate.getExchangeRateRequest();
+    exchangeRateStore.getExchangeRateRequest();
   }
 
   return (
     <div>
       <input
         inputMode="numeric"
-        value={props.exchangeRate.exchangeRate}
+        value={exchangeRateStore.exchangeRate}
         onChange={handleChange}
       />
-      {/* {
-        props.exchangeRate.isValueSetManually &&
-        <p>You set the value manually.</p>
-      }
-      <button onClick={refreshExchangeRateHandler}><RefreshIcon /></button> */}
     </div>
   );
 };

@@ -6,11 +6,11 @@ import ExchangeRateStore from "../exchangeRate/ExchangeRateStore";
 @singleton()
 class ExpenseItemsStore {
   items: ExpenseItemStore[] = [];
-  exchangeRate: ExchangeRateStore
+  exchangeRateStore: ExchangeRateStore
 
-  constructor(exchangeRate: ExchangeRateStore) {
+  constructor(exchangeRateStore: ExchangeRateStore) {
     this.items = [];
-    this.exchangeRate = exchangeRate;
+    this.exchangeRateStore = exchangeRateStore;
     makeAutoObservable(this);
   }
 
@@ -33,7 +33,6 @@ class ExpenseItemsStore {
       await fetch(`http://localhost:3001/expenses/${id}`, {
         method: 'delete',
       });
-      console.log(id,'dd')
       runInAction(() => this.getExpenseItemsRequest());
     } catch (e) {
       throw new Error('Something went wrong.')

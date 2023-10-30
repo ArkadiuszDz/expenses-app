@@ -8,39 +8,39 @@ interface ExpenseStore {
   title: string;
 }
 
-const ExpenseForm = ({test}: { test: any}) => {
+const ExpenseForm = ({ expenseItemStore }: { expenseItemStore: any}) => {
 
-  const [amount, setAmount] = useState(test.amountPLN);
+  const [amount, setAmount] = useState(expenseItemStore.amountPLN);
   const [amountError, setAmountError] = useState(false);
   const [titleError, setTitleError] = useState(false);
 
   const submitHandler = (e: any) => {
     e.preventDefault();
 
-    if (test.title.length < 5) {
+    if (expenseItemStore.title.length < 5) {
       setTitleError(true);
     } else {
       setTitleError(false);
     }
 
-    if (test.amountPLN === '') {
+    if (expenseItemStore.amountPLN === '') {
       setAmountError(true);
     } else {
       setAmountError(false);
     }
 
-    if (test.amountPLN !== '' && test.title.length >= 5) {
-      test.saveExpenseItemRequest({ 
-        amountPLN: Number(test.amountPLN),
-        title: test.title
+    if (expenseItemStore.amountPLN !== '' && expenseItemStore.title.length >= 5) {
+      expenseItemStore.saveExpenseItemRequest({ 
+        amountPLN: Number(expenseItemStore.amountPLN),
+        title: expenseItemStore.title
       });
-      test.setTitle('');
-      test.setAmount('');
+      expenseItemStore.setTitle('');
+      setAmount('');
     }
   }
 
   useEffect(() => {
-    test.setAmount(amount)
+    setAmount(amount)
   }, [amount]);
 
   return (
@@ -50,8 +50,8 @@ const ExpenseForm = ({test}: { test: any}) => {
         <div>
           <input
             name="title"
-            value={test.title}
-            onChange={e => test.setTitle(e.target.value)}
+            value={expenseItemStore.title}
+            onChange={e => expenseItemStore.setTitle(e.target.value)}
           />
           {titleError && <div className="error">The title should have at least 5 characters.</div>}
         </div>
@@ -62,7 +62,7 @@ const ExpenseForm = ({test}: { test: any}) => {
           <input
             name="amountPLN"
             inputMode="numeric"
-            value={test.amountPLN}
+            value={expenseItemStore.amountPLN}
             onChange={e => {
               setAmount(e.target.value.match(/^\d+\.?\d{0,2}/)?.at(0) ?? '');
             }}

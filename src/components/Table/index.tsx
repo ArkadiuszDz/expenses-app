@@ -4,12 +4,11 @@ import numeral from 'numeral';
 import DeleteIcon from '@mui/icons-material/Delete';
 import * as Styled from './styled';
 
-const Table = ({ items }: any) => {
+const Table = ({ expenseItemsStore }: any) => {
 
   useEffect(() => {
-    items.getExpenseItemsRequest();
+    expenseItemsStore.getExpenseItemsRequest();
   }, []);
-
 
   return (
     <div>
@@ -24,19 +23,19 @@ const Table = ({ items }: any) => {
         </thead>
         <tbody>
           {
-            items.itemsArray &&
-            items.itemsArray.map((item: any) => {
+            expenseItemsStore.itemsArray &&
+            expenseItemsStore.itemsArray.map((item: any) => {
               return (
                 <tr key={`${item.id}-${item.title}`} >
                   <td>{item.title}</td>
                   <td>{item.amountPLN}</td>
                   <td>
-                    {numeral(Number(item.amountPLN) * Number(items.exchangeRate.exchangeRate)).format('00.00')}
+                    {numeral(Number(item.amountPLN) * Number(expenseItemsStore.exchangeRateStore.exchangeRate)).format('00.00')}
                   </td>
                   <td>
                     <Styled.DeleteButton
                       data-text="Remove this item."
-                      onClick={() => items.removeExpenseItemRequest(item.id)}>
+                      onClick={() => expenseItemsStore.removeExpenseItemRequest(item.id)}>
                       <DeleteIcon />
                     </Styled.DeleteButton>
                   </td>
@@ -47,7 +46,7 @@ const Table = ({ items }: any) => {
         </tbody>
       </Styled.Table>
       <div>
-        {items.sum} PLN ({numeral(items.sum * items.exchangeRate.exchangeRate).format('00.00')} EUR)
+        {expenseItemsStore.sum} PLN ({numeral(expenseItemsStore.sum * expenseItemsStore.exchangeRateStore.exchangeRate).format('00.00')} EUR)
       </div>
     </div>
   );

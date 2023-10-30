@@ -23,12 +23,12 @@ function App() {
               <h1>List of Expenses</h1>
               <Styled.InputWrapper>
                 <span>1EUR = </span>
-                <ExchangeRate exchangeRate={exchangeRateStore} />
+                <ExchangeRate exchangeRateStore={exchangeRateStore} />
                 <span>PLN</span>
               </Styled.InputWrapper>
             </Styled.Title>
-            <ExpenseForm test={expenseItemStore} />
-            <Table items={expenseItemsStore}/>
+            <ExpenseForm expenseItemStore={expenseItemStore} />
+            <Table expenseItemsStore={expenseItemsStore}/>
           </ErrorBoundary>
         </Styled.Container>
       </main>
