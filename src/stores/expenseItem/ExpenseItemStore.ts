@@ -20,12 +20,12 @@ class ExpenseItemStore {
       id: observable,
       amountPLN: observable,
       title: observable,
-      setAmount: action,
+      setAmountPLN: action,
       setTitle: action,
       saveExpenseItemRequest: action
     });
   }
-  setAmount(amount: string) {
+  setAmountPLN(amount: string) {
     this.amountPLN = amount;
   }
   setTitle(title: string) {

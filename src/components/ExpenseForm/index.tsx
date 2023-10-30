@@ -41,7 +41,7 @@ const ExpenseForm = ({ expenseItemStore }: Props) => {
   }
 
   useEffect(() => {
-    setAmount(amount)
+    expenseItemStore.setAmountPLN(amount)
   }, [amount]);
 
   return (
@@ -65,7 +65,7 @@ const ExpenseForm = ({ expenseItemStore }: Props) => {
             inputMode="numeric"
             value={expenseItemStore.amountPLN}
             onChange={e => {
-              setAmount(e.target.value.match(/^\d+\.?\d{0,2}/)?.at(0) ?? '');
+              setAmount(e.target.value.match(/^\d+\.?\d{0,2}/)?.at(0) || '');
             }}
           />
            {amountError && <div className="error">You should provide the amount value.</div>}
