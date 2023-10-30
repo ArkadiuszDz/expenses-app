@@ -5,6 +5,8 @@ export const InputWrapper = styled.div`
   align-items: center;
   padding: 5px 0;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 
   label {
     display: block;

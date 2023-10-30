@@ -9,6 +9,7 @@ export const Container = styled.div`
 export const Title = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
   h1 {
     margin-right: 30px;
@@ -22,7 +23,7 @@ export const InputWrapper = styled.div`
   input {
     margin: 0 5px;
   }
-  
+
   span, input {
     display: block;
   }

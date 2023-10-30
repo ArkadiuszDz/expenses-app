@@ -52,7 +52,7 @@ const Table = ({ expenseItemsStore }: Props) => {
         </tbody>
       </Styled.Table>
       <div>
-        {expenseItemsStore.sum} PLN ({numeral(expenseItemsStore.sum * Number(expenseItemsStore.exchangeRateStore.exchangeRate)).format('00.00')} EUR)
+        SUM {expenseItemsStore.sum} PLN ({numeral(expenseItemsStore.sum * Number(expenseItemsStore.exchangeRateStore.exchangeRate)).format('00.00')} EUR)
       </div>
     </div>
   );
