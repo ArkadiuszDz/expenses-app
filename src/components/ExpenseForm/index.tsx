@@ -1,4 +1,8 @@
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import numeral from 'numeral';
+
+import * as Styled from './styled';
 
 interface ExpenseStore {
   amountPLN: number;
@@ -7,47 +11,77 @@ interface ExpenseStore {
 
 const ExpenseForm = ({test}: { test: any}) => {
 
+  const [amount, setAmount] = useState(test.amountPLN);
+  const [amountError, setAmountError] = useState(false);
+  const [titleError, setTitleError] = useState(false);
+
   const submitHandler = (e: any) => {
     e.preventDefault();
 
-    if (test.amountPLN !== undefined && test.title !== '') {
+    if (test.title.length < 5) {
+      setTitleError(true);
+    } else {
+      setTitleError(false);
+    }
+
+    if (test.amountPLN === '') {
+      setAmountError(true);
+    } else {
+      setAmountError(false);
+    }
+
+    // if (test.amountPLN !== undefined && test.title.length >= 5) {
+    
+    // }
+  }
+
+  useEffect(() => {
+    if (!amountError && !titleError) {
       test.saveExpenseItemRequest({ 
         amountPLN: Number(test.amountPLN),
         title: test.title
       });
       test.setTitle('');
-      test.setAmount(0);
+      test.setAmount('');
     }
-  }
+  }, [amountError, titleError]);
+
+  useEffect(() => {
+    test.setAmount(amount)
+  }, [amount]);
 
   return (
     <form>
-      <h2>{test.title}</h2>
-      <h3>{test.amountPLN}</h3>
-      <div>
-        <input
-          name="title"
-          value={test.title}
-          onChange={e => test.setTitle(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          name="amountPLN"
-          type="number"
-          inputMode="numeric"
-          //pattern="[-+]?[0-9]*[.,]?[0-9]+"
-          value={parseFloat(test.amountPLN)}
-          onChange={e => test.setAmount(e.target.value)}
-        />
-      </div>
-      <div>
+      <Styled.InputWrapper>
+        <label>Title of transaction</label>
+        <div>
+          <input
+            name="title"
+            value={test.title}
+            onChange={e => test.setTitle(e.target.value)}
+          />
+          {titleError && <div className="error">The title should have at least 5 characters.</div>}
+        </div>
+      </Styled.InputWrapper>
+      <Styled.InputWrapper>
+        <label>Amount (in PLN)</label>
+        <div>
+          <input
+            name="amountPLN"
+            inputMode="numeric"
+            value={test.amountPLN}
+            onChange={e => {
+              setAmount(e.target.value.match(/^\d+\.?\d{0,2}/)?.at(0) ?? '');
+            }}
+          />
+           {amountError && <div className="error">You should provide the amount value.</div>}
+        </div>
         <button
           onClick={submitHandler}
         >
-          SAVE
+          Add
         </button>
-      </div>
+      </Styled.InputWrapper>
     </form>
   );
 };

@@ -1,1 +1,1 @@
-export type ExchangeRateType = number;
+export type ExchangeRateType = string;

@@ -8,8 +8,8 @@ class ExpenseItemsStore {
   items: ExpenseItemStore[] = [];
   exchangeRate: ExchangeRateStore
 
-  constructor(items: ExpenseItemStore[], exchangeRate: ExchangeRateStore) {
-    this.items = items;
+  constructor(exchangeRate: ExchangeRateStore) {
+    this.items = [];
     this.exchangeRate = exchangeRate;
     makeAutoObservable(this);
   }
@@ -41,6 +41,10 @@ class ExpenseItemsStore {
 
   get itemsArray() {
     return toJS(this.items);
+  }
+
+  get sum() {
+    return this.items.reduce((total: number, num: any) => total + Number(num.amountPLN), 0)
   }
 }
 

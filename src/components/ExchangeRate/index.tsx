@@ -1,36 +1,40 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from "mobx-react-lite";
-import RefreshIcon from '@mui/icons-material/Refresh';
 
 const ExchangeRate = (props: any) => {
+
+  const [value, setValue] = useState(props.exchangeRate.exchangeRate)
 
   useEffect(() => {
     props.exchangeRate.getExchangeRateRequest();
   }, []);
 
+  useEffect(() => {
+    console.log(value, '--value--')
+    props.exchangeRate.setExchangeRate(Number(value ?? ''));
+  }, [value]);
+
   const handleChange = (e: any) => {
-    props.exchangeRate.valueSetManually(true);
-    props.exchangeRate.setExchangeRate(Number(e.target.value));
+    // props.exchangeRate.valueSetManually(true);
+    setValue(e.target.value.match(/^\d+\.?\d{0,3}/)?.at(0));
   }
 
   const refreshExchangeRateHandler = () => {
-    // props.exchangeRate.valueSetManually(false); -- call it after successful fetch in the store
     props.exchangeRate.getExchangeRateRequest();
   }
 
   return (
     <div>
       <input
-        type="number"
         inputMode="numeric"
-        //pattern="[-+]?[0-9]*[.,]?[0-9]+"
         value={props.exchangeRate.exchangeRate}
-        onChange={handleChange}/>
-      {
+        onChange={handleChange}
+      />
+      {/* {
         props.exchangeRate.isValueSetManually &&
         <p>You set the value manually.</p>
       }
-      <button onClick={refreshExchangeRateHandler}><RefreshIcon /></button>
+      <button onClick={refreshExchangeRateHandler}><RefreshIcon /></button> */}
     </div>
   );
 };

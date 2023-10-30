@@ -10,36 +10,46 @@ const Table = ({ items }: any) => {
     items.getExpenseItemsRequest();
   }, []);
 
+
   return (
-    <Styled.Table>
-      <thead>
-        <tr>
-          <td>Title</td>
-          <td>Amount in PLN</td>
-          <td>Amount in EUR</td>
-          <td>Action</td>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          items.itemsArray &&
-          items.itemsArray.map((item: any) => {
-            return (
-              <tr key={`${item.id}-${item.title}`} >
-                <td>{item.title}</td>
-                <td>{item.amountPLN}</td>
-                <td>{numeral(item.amountPLN * items.exchangeRate.exchangeRate).format('00.00')}</td>
-                <td>
-                  <Styled.DeleteButton onClick={() => items.removeExpenseItemRequest(item.id)}>
-                    <DeleteIcon />
-                  </Styled.DeleteButton>
-                </td>
-              </tr>
-            );
-          })
-        }
-      </tbody>
-    </Styled.Table>
+    <div>
+      <Styled.Table>
+        <thead>
+          <tr>
+            <td>Title</td>
+            <td>Amount in PLN</td>
+            <td>Amount in EUR</td>
+            <td>Options</td>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            items.itemsArray &&
+            items.itemsArray.map((item: any) => {
+              return (
+                <tr key={`${item.id}-${item.title}`} >
+                  <td>{item.title}</td>
+                  <td>{item.amountPLN}</td>
+                  <td>
+                    {numeral(Number(item.amountPLN) * Number(items.exchangeRate.exchangeRate)).format('00.00')}
+                  </td>
+                  <td>
+                    <Styled.DeleteButton
+                      data-text="Remove this item."
+                      onClick={() => items.removeExpenseItemRequest(item.id)}>
+                      <DeleteIcon />
+                    </Styled.DeleteButton>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </Styled.Table>
+      <div>
+        {items.sum} PLN ({numeral(items.sum * items.exchangeRate.exchangeRate).format('00.00')} EUR)
+      </div>
+    </div>
   );
 };
 

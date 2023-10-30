@@ -6,14 +6,14 @@ import ExpenseItemsStore from "../expenseItems/ExpenseItemsStore";
 @singleton()
 class ExpenseItemStore {
   readonly id: string;
-  amountPLN: number;
+  amountPLN: string;
   title: string;
   itemsStore: ExpenseItemsStore;
 
-  constructor(id: string, amount: number, title: string, itemsStore: ExpenseItemsStore) {
-    this.id = id;
-    this.amountPLN = amount;
-    this.title = title;
+  constructor(itemsStore: ExpenseItemsStore) {
+    this.id = '';
+    this.amountPLN = '';
+    this.title = '';
     this.itemsStore = itemsStore;
 
     makeObservable(this, {
@@ -25,7 +25,7 @@ class ExpenseItemStore {
       saveExpenseItemRequest: action
     });
   }
-  setAmount(amount: number) {
+  setAmount(amount: string) {
     this.amountPLN = amount;
   }
   setTitle(title: string) {
