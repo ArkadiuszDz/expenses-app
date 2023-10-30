@@ -1,17 +1,17 @@
 import { singleton } from "tsyringe";
 import { makeAutoObservable, runInAction, toJS } from "mobx";
 import ExpenseItemStore from "../expenseItem/ExpenseItemStore";
-import ExchangeRateStore from "../exchangeRate/ExchangeRateStore";
 import { ExpenseItemResponseType } from "../../domains/expenseItem/expenseItem.types";
+import GlobalStore from "../GlobalStore";
 
 @singleton()
 class ExpenseItemsStore {
   items: ExpenseItemStore[] = [];
-  exchangeRateStore: ExchangeRateStore
+  globalStore: GlobalStore;
 
-  constructor(exchangeRateStore: ExchangeRateStore) {
+  constructor(globalStore: GlobalStore) {
     this.items = [];
-    this.exchangeRateStore = exchangeRateStore;
+    this.globalStore = globalStore;
     makeAutoObservable(this);
   }
 

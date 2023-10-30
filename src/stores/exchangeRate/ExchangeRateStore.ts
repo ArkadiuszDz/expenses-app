@@ -1,16 +1,15 @@
 import { singleton } from "tsyringe";
 import { action, makeObservable, observable, runInAction } from "mobx";
-
-import type { ExchangeRateType } from "../../domains/exchangeRate/exchangeRate.types";
+import GlobalStore from "../GlobalStore";
 
 @singleton()
 class ExchangeRateStore {
-  exchangeRate: ExchangeRateType;
-  isValueSetManually: boolean;
+  exchangeRate: string;
+  globalStore: GlobalStore;
 
-  constructor(exchangeRate: ExchangeRateType) {
-    this.exchangeRate = exchangeRate;
-    this.isValueSetManually = false;
+  constructor(globalStore: GlobalStore) {
+    this.exchangeRate = '';
+    this.globalStore = globalStore;
 
     makeObservable(this, {
       exchangeRate: observable,
@@ -24,19 +23,14 @@ class ExchangeRateStore {
       const data = await response.json();
       runInAction(() => {
         this.setExchangeRate(data.value);
-        this.valueSetManually(false);
       });
     } catch (e) {
       throw new Error('Something went wrong.')
     }
   }
 
-  setExchangeRate(exchangeRate: ExchangeRateType) {
+  setExchangeRate(exchangeRate: string) {
     this.exchangeRate = exchangeRate;
-  }
-
-  valueSetManually(isValueSetManually: boolean) {
-    this.isValueSetManually = isValueSetManually;
   }
 }
 

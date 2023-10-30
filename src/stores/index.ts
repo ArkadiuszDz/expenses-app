@@ -1,7 +1,3 @@
-import ExpenseItemStore from "./expenseItem/ExpenseItemStore";
-import ExpenseItemsStore from "./expenseItems/ExpenseItemsStore";
-import ExchangeRateStore from "./exchangeRate/ExchangeRateStore";
+import GlobalStore from "./GlobalStore";
 
-export const exchangeRateStore = new ExchangeRateStore('');
-export const expenseItemsStore = new ExpenseItemsStore(exchangeRateStore);
-export const expenseItemStore = new ExpenseItemStore(expenseItemsStore);
+export const globalStore = new GlobalStore();

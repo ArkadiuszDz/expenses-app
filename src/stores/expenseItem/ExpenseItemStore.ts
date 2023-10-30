@@ -1,20 +1,20 @@
 import { singleton } from "tsyringe";
 import { action, makeObservable, observable } from "mobx";
 import { ExpenseItemType } from "../../domains/expenseItem/expenseItem.types";
-import ExpenseItemsStore from "../expenseItems/ExpenseItemsStore";
+import GlobalStore from "../GlobalStore";
 
 @singleton()
 class ExpenseItemStore {
   readonly id: string;
   amountPLN: string;
   title: string;
-  itemsStore: ExpenseItemsStore;
+  globalStore: GlobalStore;
 
-  constructor(itemsStore: ExpenseItemsStore) {
+  constructor(globalStore: GlobalStore) {
     this.id = '';
     this.amountPLN = '';
     this.title = '';
-    this.itemsStore = itemsStore;
+    this.globalStore = globalStore;
 
     makeObservable(this, {
       id: observable,
@@ -42,7 +42,7 @@ class ExpenseItemStore {
           'Content-Type': 'application/json',
         }
       });
-      await this.itemsStore.getExpenseItemsRequest();
+      await this.globalStore.expenseItemsStore.getExpenseItemsRequest();
     } catch (e) {
       throw new Error('Something went wrong.')
     }

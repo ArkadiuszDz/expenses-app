@@ -7,6 +7,16 @@
       "amountPLN": 2.55,
       "title": "Bus ticket",
       "id": 1
+    },
+    {
+      "amountPLN": "100",
+      "title": "New book about Rust",
+      "id": 2
+    },
+    {
+      "amountPLN": "20",
+      "title": "Snacks for a football match",
+      "id": 3
     }
   ]
 }

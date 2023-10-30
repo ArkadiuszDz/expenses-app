@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { observer } from "mobx-react-lite";
-import ExchangeRateStore from '../../stores/exchangeRate/ExchangeRateStore';
+import GlobalStore from '../../stores/GlobalStore';
 
 interface Props {
-  exchangeRateStore: ExchangeRateStore;
+  globalStore: GlobalStore;
 }
 
-const ExchangeRate = ({ exchangeRateStore }: Props) => {
+const ExchangeRate = ({ globalStore }: Props) => {
 
-  const [value, setValue] = useState(exchangeRateStore.exchangeRate);
+  const [value, setValue] = useState(globalStore.exchangeRateStore.exchangeRate);
 
   useEffect(() => {
-    exchangeRateStore.getExchangeRateRequest();
+    globalStore.exchangeRateStore.getExchangeRateRequest();
   }, []);
 
   useEffect(() => {
-    exchangeRateStore.setExchangeRate(value ?? '');
+    globalStore.exchangeRateStore.setExchangeRate(value ?? '');
   }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +26,7 @@ const ExchangeRate = ({ exchangeRateStore }: Props) => {
     <div>
       <input
         inputMode="numeric"
-        value={exchangeRateStore.exchangeRate}
+        value={globalStore.exchangeRateStore.exchangeRate}
         onChange={handleChange}
       />
     </div>

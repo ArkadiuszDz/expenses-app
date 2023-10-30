@@ -3,17 +3,17 @@ import { observer } from 'mobx-react-lite';
 import numeral from 'numeral';
 import DeleteIcon from '@mui/icons-material/Delete';
 import * as Styled from './styled';
-import ExpenseItemsStore from '../../stores/expenseItems/ExpenseItemsStore';
 import { ExpenseItemResponseType } from '../../domains/expenseItem/expenseItem.types';
+import GlobalStore from '../../stores/GlobalStore';
 
 interface Props {
-  expenseItemsStore: ExpenseItemsStore
+  globalStore: GlobalStore
 }
 
-const Table = ({ expenseItemsStore }: Props) => {
+const Table = ({ globalStore }: Props) => {
 
   useEffect(() => {
-    expenseItemsStore.getExpenseItemsRequest();
+    globalStore.expenseItemsStore.getExpenseItemsRequest();
   }, []);
 
   return (
@@ -29,19 +29,19 @@ const Table = ({ expenseItemsStore }: Props) => {
         </thead>
         <tbody>
           {
-            expenseItemsStore.itemsArray &&
-            expenseItemsStore.itemsArray.map((item: ExpenseItemResponseType) => {
+            globalStore.expenseItemsStore.itemsArray &&
+            globalStore.expenseItemsStore.itemsArray.map((item: ExpenseItemResponseType) => {
               return (
                 <tr key={`${item.id}-${item.title}`} >
                   <td>{item.title}</td>
                   <td>{item.amountPLN}</td>
                   <td>
-                    {numeral(Number(item.amountPLN) * Number(expenseItemsStore.exchangeRateStore.exchangeRate)).format('00.00')}
+                    {numeral(Number(item.amountPLN) * Number(globalStore.exchangeRateStore.exchangeRate)).format('00.00')}
                   </td>
                   <td>
                     <Styled.DeleteButton
                       data-text="Remove this item."
-                      onClick={() => expenseItemsStore.removeExpenseItemRequest(item.id)}>
+                      onClick={() => globalStore.expenseItemsStore.removeExpenseItemRequest(item.id)}>
                       <DeleteIcon />
                     </Styled.DeleteButton>
                   </td>
@@ -52,7 +52,7 @@ const Table = ({ expenseItemsStore }: Props) => {
         </tbody>
       </Styled.Table>
       <div>
-        SUM {expenseItemsStore.sum} PLN ({numeral(expenseItemsStore.sum * Number(expenseItemsStore.exchangeRateStore.exchangeRate)).format('00.00')} EUR)
+        Sum: {globalStore.expenseItemsStore.sum} PLN ({numeral(globalStore.expenseItemsStore.sum * Number(globalStore.exchangeRateStore.exchangeRate)).format('00.00')} EUR)
       </div>
     </div>
   );

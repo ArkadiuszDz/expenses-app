@@ -2,46 +2,48 @@ import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import * as Styled from './styled';
-import ExpenseItemStore from '../../stores/expenseItem/ExpenseItemStore';
-
+import GlobalStore from '../../stores/GlobalStore';
 
 interface Props {
-  expenseItemStore: ExpenseItemStore
+  globalStore: GlobalStore;
 }
 
-const ExpenseForm = ({ expenseItemStore }: Props) => {
+const ExpenseForm = ({ globalStore }: Props) => {
 
-  const [amount, setAmount] = useState(expenseItemStore.amountPLN);
+  const [amount, setAmount] = useState(globalStore.expenseItemStore.amountPLN);
   const [amountError, setAmountError] = useState(false);
   const [titleError, setTitleError] = useState(false);
 
   const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
-    if (expenseItemStore.title.length < 5) {
+    if (globalStore.expenseItemStore.title.length < 5) {
       setTitleError(true);
     } else {
       setTitleError(false);
     }
 
-    if (expenseItemStore.amountPLN === '') {
+    if (globalStore.expenseItemStore.amountPLN === '') {
       setAmountError(true);
     } else {
       setAmountError(false);
     }
 
-    if (expenseItemStore.amountPLN !== '' && expenseItemStore.title.length >= 5) {
-      expenseItemStore.saveExpenseItemRequest({ 
-        amountPLN: expenseItemStore.amountPLN,
-        title: expenseItemStore.title
+    if (
+      globalStore.expenseItemStore.amountPLN !== '' &&
+      globalStore.expenseItemStore.title.length >= 5
+      ) {
+        globalStore.expenseItemStore.saveExpenseItemRequest({ 
+        amountPLN: globalStore.expenseItemStore.amountPLN,
+        title: globalStore.expenseItemStore.title
       });
-      expenseItemStore.setTitle('');
+      globalStore.expenseItemStore.setTitle('');
       setAmount('');
     }
   }
 
   useEffect(() => {
-    expenseItemStore.setAmountPLN(amount)
+    globalStore.expenseItemStore.setAmountPLN(amount)
   }, [amount]);
 
   return (
@@ -51,8 +53,8 @@ const ExpenseForm = ({ expenseItemStore }: Props) => {
         <div>
           <input
             name="title"
-            value={expenseItemStore.title}
-            onChange={e => expenseItemStore.setTitle(e.target.value)}
+            value={globalStore.expenseItemStore.title}
+            onChange={e => globalStore.expenseItemStore.setTitle(e.target.value)}
           />
           {titleError && <div className="error">The title should have at least 5 characters.</div>}
         </div>
@@ -63,7 +65,7 @@ const ExpenseForm = ({ expenseItemStore }: Props) => {
           <input
             name="amountPLN"
             inputMode="numeric"
-            value={expenseItemStore.amountPLN}
+            value={globalStore.expenseItemStore.amountPLN}
             onChange={e => {
               setAmount(e.target.value.match(/^\d+\.?\d{0,2}/)?.at(0) || '');
             }}
