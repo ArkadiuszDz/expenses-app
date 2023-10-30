@@ -1,5 +1,5 @@
 export interface ExpenseItemType {
-  amount: number;
+  amountPLN: string;
   title: string;
 }
 

@@ -2,19 +2,20 @@ import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import * as Styled from './styled';
+import ExpenseItemStore from '../../stores/expenseItem/ExpenseItemStore';
 
-interface ExpenseStore {
-  amountPLN: number;
-  title: string;
+
+interface Props {
+  expenseItemStore: ExpenseItemStore
 }
 
-const ExpenseForm = ({ expenseItemStore }: { expenseItemStore: any}) => {
+const ExpenseForm = ({ expenseItemStore }: Props) => {
 
   const [amount, setAmount] = useState(expenseItemStore.amountPLN);
   const [amountError, setAmountError] = useState(false);
   const [titleError, setTitleError] = useState(false);
 
-  const submitHandler = (e: any) => {
+  const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
     if (expenseItemStore.title.length < 5) {
@@ -31,7 +32,7 @@ const ExpenseForm = ({ expenseItemStore }: { expenseItemStore: any}) => {
 
     if (expenseItemStore.amountPLN !== '' && expenseItemStore.title.length >= 5) {
       expenseItemStore.saveExpenseItemRequest({ 
-        amountPLN: Number(expenseItemStore.amountPLN),
+        amountPLN: expenseItemStore.amountPLN,
         title: expenseItemStore.title
       });
       expenseItemStore.setTitle('');

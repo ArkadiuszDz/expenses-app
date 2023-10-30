@@ -2,6 +2,7 @@ import { singleton } from "tsyringe";
 import { makeAutoObservable, runInAction, toJS } from "mobx";
 import ExpenseItemStore from "../expenseItem/ExpenseItemStore";
 import ExchangeRateStore from "../exchangeRate/ExchangeRateStore";
+import { ExpenseItemResponseType } from "../../domains/expenseItem/expenseItem.types";
 
 @singleton()
 class ExpenseItemsStore {
@@ -44,7 +45,7 @@ class ExpenseItemsStore {
   }
 
   get sum() {
-    return this.items.reduce((total: number, num: any) => total + Number(num.amountPLN), 0)
+    return this.items.reduce((total: number, num: ExpenseItemResponseType) => total + Number(num.amountPLN), 0)
   }
 }
 

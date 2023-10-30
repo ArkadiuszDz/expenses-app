@@ -3,8 +3,14 @@ import { observer } from 'mobx-react-lite';
 import numeral from 'numeral';
 import DeleteIcon from '@mui/icons-material/Delete';
 import * as Styled from './styled';
+import ExpenseItemsStore from '../../stores/expenseItems/ExpenseItemsStore';
+import { ExpenseItemResponseType } from '../../domains/expenseItem/expenseItem.types';
 
-const Table = ({ expenseItemsStore }: any) => {
+interface Props {
+  expenseItemsStore: ExpenseItemsStore
+}
+
+const Table = ({ expenseItemsStore }: Props) => {
 
   useEffect(() => {
     expenseItemsStore.getExpenseItemsRequest();
@@ -24,7 +30,7 @@ const Table = ({ expenseItemsStore }: any) => {
         <tbody>
           {
             expenseItemsStore.itemsArray &&
-            expenseItemsStore.itemsArray.map((item: any) => {
+            expenseItemsStore.itemsArray.map((item: ExpenseItemResponseType) => {
               return (
                 <tr key={`${item.id}-${item.title}`} >
                   <td>{item.title}</td>
@@ -46,7 +52,7 @@ const Table = ({ expenseItemsStore }: any) => {
         </tbody>
       </Styled.Table>
       <div>
-        {expenseItemsStore.sum} PLN ({numeral(expenseItemsStore.sum * expenseItemsStore.exchangeRateStore.exchangeRate).format('00.00')} EUR)
+        {expenseItemsStore.sum} PLN ({numeral(expenseItemsStore.sum * Number(expenseItemsStore.exchangeRateStore.exchangeRate)).format('00.00')} EUR)
       </div>
     </div>
   );
